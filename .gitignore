@@ -1,0 +1,19 @@
+# Secrets / runtime files
+android/mux.env
+*.env
+*.log
+server.ip
+mux.pid
+
+# Local Android deployment directory
+moonlight-mux/
+
+# Windows local configuration and logs
+windows/moonlight-server.json
+windows/*.log
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
