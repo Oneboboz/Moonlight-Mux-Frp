@@ -1,0 +1,5 @@
+{
+    "mode": "server",
+    "key": "CHANGE_ME",
+    "server": "127.0.0.1:23456"
+}
