@@ -1,16 +1,17 @@
 #!/data/data/com.termux/files/usr/bin/sh
 
-LOG="$HOME/moonlight-mux/logs/boot.log"
-mkdir -p "$HOME/moonlight-mux/logs"
+BASE="$HOME/moonlight-mux"
+LOG="$BASE/logs/boot.log"
+mkdir -p "$BASE/logs"
 
 echo "================================" >> "$LOG"
 echo "BOOT: $(date)" >> "$LOG"
 
 if command -v termux-wake-lock >/dev/null 2>&1; then
-    termux-wake-lock
-    echo "Wake lock enabled" >> "$LOG"
+  termux-wake-lock
+  echo "Wake lock enabled" >> "$LOG"
 fi
 
 sleep 10
-"$HOME/moonlight-mux/mux.sh" start >> "$LOG" 2>&1
+"$BASE/mux.sh" start >> "$LOG" 2>&1
 echo "MUX start result: $?" >> "$LOG"
