@@ -18,9 +18,14 @@ is_running() {
   [ -n "$pid" ] && kill -0 "$pid" 2>/dev/null
 }
 resolve_ipv4() {
-  ip="$(ping -c 1 -W 2 "$1" 2>/dev/null | sed -n '1s/.*(\([0-9][0-9.]*\)).*/\1/p')"
-  case "$ip" in ''|*[!0-9.]*) ip="" ;; esac
-  if [ -n "$ip" ]; then echo "$ip" > "$IPFILE"; echo "$ip"; return 0; fi
+  ip="$(ping -c 1 -W 2 "$1" 2>/dev/null | sed -n '1{s/^[^(]*(\([0-9][0-9.]*\)).*/\1/;p;q;}')"
+  case "$ip" in ''|*[!0-9.]*) ip="" ;;
+  esac
+  if [ -n "$ip" ]; then
+    echo "$ip" > "$IPFILE"
+    echo "$ip"
+    return 0
+  fi
   [ -s "$IPFILE" ] && cat "$IPFILE" && return 0
   return 1
 }
