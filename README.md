@@ -294,32 +294,6 @@ The MUX Server can therefore use the same local 23456 on every separate PC. The 
 
 On one Android device, use separate local MUX client instances / local port sets if you want several PCs available simultaneously. Do not start two clients that try to bind the same Moonlight ports.
 
-## 6. nxapi / s3s authentication workaround
-
-If you are using `space4y/nxapi-s3s:0.7.0`, **do not keep retrying its built-in Nintendo authentication step** if it fails with:
-
-~~~text
-Remote configuration prevents Coral authentication
-~~~
-
-The old image expects `nxapi nso auth` to print a `session_token:` line. Current nxapi no longer exposes the token that way; it stores the Nintendo Account session token in persistent storage.
-
-The tested workaround is:
-
-1. Authenticate with current nxapi.
-2. Verify the account with `nso user`.
-3. Generate the s3s configuration with `util update-s3s-token`.
-4. Copy `/data/config.txt` into the old image's `/s3s/config.txt`.
-5. Run the old image's `s3s.py --getseed` directly, bypassing its obsolete entrypoint.
-
-Detailed commands and security notes are in:
-
-~~~text
-docs/NXAPI-S3S-Auth.md
-~~~
-
-**Never commit `config.txt`, session tokens, gtoken, bulletToken, JWTs, or authentication logs.**
-
 ## Security
 
 - Do not commit real MUX keys.
